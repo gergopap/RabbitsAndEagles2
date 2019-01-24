@@ -123,6 +123,30 @@ public class Main extends JFrame implements MainContract.View {
                 Cell Cell = matrix[i][j];
                 if (Cell != null) {
                     btn.setText(Cell.toString());
+                    if (btn.getText().equals("Szuper R.")) {
+                        Icon a =new ImageIcon("szny.jpg");
+                        btn.setIcon(a);
+                    }
+
+                    if (btn.getText().equals("Rabbit")) {
+                        Icon b =new ImageIcon("nyuszi2.jpg");
+                        btn.setIcon(b);
+                    }
+
+                    if (btn.getText().equals("G")) {
+                        Icon c =new ImageIcon("kaja.jpg");
+                        btn.setIcon(c);
+                    }
+
+                    if (btn.getText().equals("B")) {
+                        Icon d =new ImageIcon("bokor.jpg");
+                        btn.setIcon(d);
+                    }
+
+                    if (btn.getText().equals(" ")) {
+                        Icon e =new ImageIcon("alap.jpg");
+                        btn.setIcon(e);
+                    }
                     //if (Cell instanceof Rabbit) {
                      //   btn.setIcon(new ImageIcon("nyuszi2.jpg"));
                     //}
@@ -163,7 +187,7 @@ public class Main extends JFrame implements MainContract.View {
         layoutButtons.repaint();
         rabbitInfo.revalidate();
 
-        /*if (btn.getText().equals("Szuper R.")) {
+        if (btn.getText().equals("Szuper R.")) {
             Icon a =new ImageIcon("szny.jpg");
             btn.setIcon(a);
         }
@@ -186,7 +210,7 @@ public class Main extends JFrame implements MainContract.View {
         if (btn.getText().equals(" ")) {
             Icon e =new ImageIcon("alap.jpg");
             btn.setIcon(e);
-        }*/
+        }
     }
 
 
@@ -199,7 +223,7 @@ public class Main extends JFrame implements MainContract.View {
                         center.x == i || center.y == j) {
                     int index = i * 8 + j;
                     ((JButton) layoutButtons.getComponent(index))
-                            .setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+                            .setBorder(BorderFactory.createLineBorder(Color.yellow));
                 }
             }
         }

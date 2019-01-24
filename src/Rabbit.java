@@ -20,7 +20,7 @@ public class Rabbit extends Cell implements Birth, Death {
     public boolean isMovable() {
         return true;
     }
-    
+
 
     @Override
     public int maxStep() {

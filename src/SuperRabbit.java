@@ -24,7 +24,7 @@ public class SuperRabbit extends Cell implements Birth, Death{
 
     @Override
     public boolean canMoveOutOfAxis() {
-        return true;
+        return false;
     }
 
     @Override
