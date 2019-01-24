@@ -1,9 +1,10 @@
-public class SuperRabbit extends Cell implements Birth, Death{
+public class SuperRabbit extends Cell implements Death{
 
     private int age;
     private int energy;
 
-    SuperRabbit(int age, int energy) {
+    SuperRabbit(int x, int y, int age, int energy) {
+        super(x, y);
         this.age = age;
         this.energy = energy;
     }
@@ -27,11 +28,7 @@ public class SuperRabbit extends Cell implements Birth, Death{
         return false;
     }
 
-    @Override
-    public void birth() {
-        Table.superRabbitList.add(new SuperRabbit(1,3));
 
-    }
 
     @Override
     public void death() {
@@ -58,4 +55,10 @@ public class SuperRabbit extends Cell implements Birth, Death{
     public void setEnergy(int energy) {
         this.energy = energy;
     }
+
+    public String superRabbitInfo() { return "Rabbit:" + " "
+            + "Age:" + " " + getAge() + "\n\r"
+            + "Energy:" + " " + getEnergy() + "\n\r";
+    }
+
 }

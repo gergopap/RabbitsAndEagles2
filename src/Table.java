@@ -19,9 +19,9 @@ public class Table {
 
     public Table(int year) {
         //this.year = year;
-        rabbitListFiller();
+        //rabbitListFiller();
         eagleListFiller();
-        superRabbitListFiller();
+        //superRabbitListFiller();
         generateGrass(20);
         generateBush(20);
         generateRabbits();
@@ -29,13 +29,14 @@ public class Table {
         fillMap();
 
         for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0;j < matrix[i].length; j++) {
-                prevMatrix[i][j] = new Cell();
+            for (int j = 0; j < matrix[i].length; j++) {
+                prevMatrix[i][j] = new Cell(i, j);
             }
 
         }
     }
 
+/*
 
     private void rabbitListFiller() {
 
@@ -43,7 +44,7 @@ public class Table {
             Rabbit rabbit = new Rabbit(1, 5);
             rabbitList.add(rabbit);
         }
-    }
+    }*/
 
 
     private void eagleListFiller() {
@@ -52,13 +53,14 @@ public class Table {
             eagleList.add(eagle);
         }
     }
-
+/*
     private void superRabbitListFiller() {
         for (int i = 0; i < 5; i++) {
             SuperRabbit superRabbit = new SuperRabbit(1, 3);
             superRabbitList.add(superRabbit);
         }
     }
+*/
 
 
     private void generateGrass(int grassPiece) {
@@ -71,7 +73,8 @@ public class Table {
                 index2 = (int) (Math.random() * 8);
 
             } while (matrix[index1][index2] != null);
-            matrix[index1][index2] = new Grass();
+            Grass grass = new Grass(index1, index2);
+            matrix[index1][index2] = grass;
         }
     }
 
@@ -85,7 +88,8 @@ public class Table {
                 index2 = (int) (Math.random() * 8);
 
             } while (matrix[index1][index2] != null);
-            matrix[index1][index2] = new Bush();
+            Bush bush = new Bush(index1, index2);
+            matrix[index1][index2] = bush;
         }
     }
 
@@ -93,13 +97,15 @@ public class Table {
         int index1;
         int index2;
 
-        for (int i = 0; i < rabbitList.size(); i++) {
+        for (int i = 0; i < 5; i++) {
             do {
                 index1 = (int) (Math.random() * 8);
                 index2 = (int) (Math.random() * 8);
 
             } while (matrix[index1][index2] != null);
-            matrix[index1][index2] = rabbitList.get(i);
+            Rabbit rabbit = new Rabbit(index1, index2, 1, 5);
+            rabbitList.add(rabbit);
+            matrix[index1][index2] = rabbit;
         }
     }
 
@@ -107,13 +113,15 @@ public class Table {
         int index1;
         int index2;
 
-        for (int i = 0; i < superRabbitList.size(); i++) {
+        for (int i = 0; i < 5; i++) {
             do {
                 index1 = (int) (Math.random() * 8);
                 index2 = (int) (Math.random() * 8);
 
             } while (matrix[index1][index2] != null);
-            matrix[index1][index2] = superRabbitList.get(i);
+            SuperRabbit supeRabbit = new SuperRabbit(index1, index2, 1, 5);
+            superRabbitList.add(supeRabbit);
+            matrix[index1][index2] = supeRabbit;
 
             //matrix[index1][index2] = new SuperRabbit(1,3);
         }
@@ -123,10 +131,14 @@ public class Table {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 if (matrix[i][j] == null) {
-                    matrix[i][j] = new Cell();
+                    matrix[i][j] = new Cell(i, j);
                 }
             }
         }
+    }
+
+    public void updateTable() {
+
     }
 
     public void selectItem(Position position) {
@@ -162,36 +174,48 @@ public class Table {
         //matrix[to.x][to.y] instanceof Rabbit;
     }
 
+    public void increaseEnergy (Cell CellFrom) {
+        if (CellFrom instanceof Rabbit) {
+            int energy = ((Rabbit) CellFrom).getEnergy();
+            ((Rabbit) CellFrom).setEnergy(energy + 1);
+            System.out.println(((Rabbit) CellFrom).getEnergy());
+        } else {
+            int energy = ((SuperRabbit) CellFrom).getEnergy();
+            ((SuperRabbit) CellFrom).setEnergy(energy + 1);
+            System.out.println(((SuperRabbit) CellFrom).getEnergy());
+        }
+    }
+
+    public void hide (Cell CellTo) {
+        //String inBush = ((Rabbit) CellFrom).isInBush();
+        String rb = "R/B";
+
+        //System.out.println(prevMatrix[to.x][to.y].toString());
+    }
+
     public void moveCellItem(Position from, Position to) {
         Cell CellFrom = matrix[from.x][from.y];
         Cell CellTo = matrix[to.x][to.y];
 
-        if (CellFrom != null) {
-            if (CellTo instanceof Grass) {
-                if (CellFrom instanceof Rabbit) {
-                    int energy = ((Rabbit) CellFrom).getEnergy();
-                    ((Rabbit) CellFrom).setEnergy(energy + 1);
-                    System.out.println(((Rabbit) CellFrom).getEnergy());
-                } else {
-                    int energy = ((SuperRabbit) CellFrom).getEnergy();
-                    ((SuperRabbit) CellFrom).setEnergy(energy + 1);
-                    System.out.println(((SuperRabbit) CellFrom).getEnergy());
-                }
-            }
-            if (CellTo instanceof Bush) {
-                //String inBush = ((Rabbit) CellFrom).isInBush();
-                String rb = "R/B";
-
-                System.out.println(prevMatrix[to.x][to.y].toString());
-            }
-
-            matrix[from.x][from.y] = prevMatrix[from.x][from.y];
-            prevMatrix[to.x][to.y] = CellTo;
-            matrix[to.x][to.y] = CellFrom;
+        if (CellFrom == null) return;
+        if (CellTo instanceof Grass) {
+            increaseEnergy(CellFrom);
         }
+        if (CellTo instanceof Bush) {
+            hide(CellTo);
+        }
+
+        matrix[from.x][from.y] = prevMatrix[from.x][from.y];
+        prevMatrix[to.x][to.y] = CellTo;
+        matrix[to.x][to.y] = CellFrom;
+
     }
 
-    public String rabbitStepToBush () {
+    public void removeRabbit(Rabbit rabbit) {
+        matrix[rabbit.x][rabbit.y] = new Cell(rabbit.x, rabbit.y);
+    }
+
+    public String rabbitStepToBush() {
         String rb = "R/B";
         return rb;
     }

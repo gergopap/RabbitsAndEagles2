@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.util.List;
 
-public class Eagle implements Birth, Death, Attack {
+public class Eagle implements Death, Attack {
 
     private int age;
     private int energy;
@@ -11,11 +11,6 @@ public class Eagle implements Birth, Death, Attack {
         this.energy = energy;
     }
 
-
-    @Override
-    public void birth() {
-
-    }
 
     @Override
     public void death() {
@@ -28,14 +23,25 @@ public class Eagle implements Birth, Death, Attack {
     }
 
     @Override
-    public void attack() {
+    public Rabbit attack() {
 
-        int i = (int) (Math.random() * Table.rabbitList.size() - 1);
-        if (Table.rabbitList.get(i) != null) {
-            if (Table.rabbitList.get(i).getAge() < 3) {
+        if (Table.rabbitList.size() > 0) {
+
+            int i = (int) (Math.random() * Table.rabbitList.size() - 1);
+            Rabbit rabbit = Table.rabbitList.get(i);
+            if (rabbit.getAge() < 150 && !rabbit.isInBush()) {
                 energy += 2;
+
                 Table.rabbitList.remove(i);
+
+                System.out.println(Table.rabbitList);
+                return rabbit;
+            } else {
+                return null;
+
             }
+        } else {
+            return null;
         }
     }
 

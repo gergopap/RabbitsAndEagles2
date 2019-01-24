@@ -1,16 +1,21 @@
 import javax.swing.*;
 
-public class Rabbit extends Cell implements Birth, Death {
+public class Rabbit extends Cell implements Death {
 
     private int age;
     private int energy;
     public Icon icon;
+    private boolean inBush;
 
-    Rabbit(int age, int energy) {
+    Rabbit(int x, int y, int age, int energy) {
+        super(x, y);
         this.age = age;
         this.energy = energy;
+        this.inBush = false;
         this.icon = new ImageIcon("nyuszi2.jpg");
     }
+
+
 
 
     public boolean isItRabbit() {
@@ -19,6 +24,12 @@ public class Rabbit extends Cell implements Birth, Death {
 
     public boolean isMovable() {
         return true;
+    }
+
+    public boolean isInBush () { return inBush;}
+
+    public void setInBush(boolean inBush) {
+        this.inBush = inBush;
     }
 
 
@@ -32,10 +43,6 @@ public class Rabbit extends Cell implements Birth, Death {
         return false;
     }
 
-    @Override
-    public void birth() {
-        Table.rabbitList.add(new Rabbit(1, 5));
-    }
 
     @Override
     public void death() {
@@ -63,5 +70,10 @@ public class Rabbit extends Cell implements Birth, Death {
         this.energy = energy;
     }
 
+
+    public String rabbitInfo() { return "Rabbit:" + "\n\r" +" "
+            + "Age:" + " " + getAge() + "\n\r"
+            + "Energy:" + " " + getEnergy() + "\n\r";
+    }
 
 }

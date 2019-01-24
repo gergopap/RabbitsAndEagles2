@@ -1,4 +1,9 @@
 public class Grass extends Cell {
+
+    public Grass(int x, int y) {
+        super(x, y);
+    }
+
     public boolean isItGrass() {
         return true;
     }

@@ -1,4 +1,8 @@
 public class Bush extends Cell {
+    public Bush(int x, int y) {
+        super(x, y);
+    }
+
     public boolean isItBush() {
         return true;
     }

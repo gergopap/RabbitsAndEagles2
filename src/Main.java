@@ -23,7 +23,8 @@ public class Main extends JFrame implements MainContract.View {
     private MainContract.Presenter presenter;
 
     private JPanel layoutButtons;
-    private JLabel rabbitInfo;
+    private JPanel layoutButtons2;
+    private JTextArea rabbitInfo;
     private JLabel gameInfo;
     private JLabel eaglePanel;
 
@@ -46,7 +47,14 @@ public class Main extends JFrame implements MainContract.View {
         layoutButtons.setLayout(null);
         root.add(layoutButtons);
 
-        rabbitInfo = new JLabel();;
+        layoutButtons2 = new JPanel();
+        layoutButtons2.setBounds(0, 0, 410, 410);
+        layoutButtons2.setBackground(Color.RED);
+        layoutButtons2.setLayout(null);
+
+        root.add(layoutButtons2);
+
+        rabbitInfo = new JTextArea();
         rabbitInfo.setBounds(495, 225, 300, 465);
         rabbitInfo.setBackground(Color.gray);
         rabbitInfo.setFont(new Font("Arial", Font.BOLD, 15));
@@ -69,8 +77,7 @@ public class Main extends JFrame implements MainContract.View {
         root.add(eaglePanel);
         eaglePanel.setVisible(true);
 
-
-
+        eagleAttackAnimation(root);
 
 
         actionListener = e -> {
@@ -102,7 +109,7 @@ public class Main extends JFrame implements MainContract.View {
                 btn.setBorderPainted(true);
                 btn.setBorder(BorderFactory.createLineBorder(Color.white));
                 btn.setBounds(15 + j * 55,
-                         15+ i * 55,
+                        15 + i * 55,
                         50,
                         50);
                 layoutButtons.add(btn);
@@ -115,61 +122,114 @@ public class Main extends JFrame implements MainContract.View {
                 }*/
 
 
-
                 btn.setOpaque(true);
 
                 //System.out.println(matrix.toString());
 
-                Cell Cell = matrix[i][j];
-                if (Cell != null) {
-                    btn.setText(Cell.toString());
-                    if (btn.getText().equals("Szuper R.")) {
-                        Icon a =new ImageIcon("szny.jpg");
+                Cell cell = matrix[i][j];
+                if (cell != null) {
+                    btn.setText(cell.toString());
+                    if (cell instanceof SuperRabbit) {
+                        Icon a = new ImageIcon("szny.jpg");
                         btn.setIcon(a);
                     }
 
-                    if (btn.getText().equals("Rabbit")) {
-                        Icon b =new ImageIcon("nyuszi2.jpg");
+                    if (cell instanceof Rabbit) {
+                        Icon b = new ImageIcon("nyuszi2.jpg");
                         btn.setIcon(b);
                     }
 
-                    if (btn.getText().equals("G")) {
-                        Icon c =new ImageIcon("kaja.jpg");
+                    if (cell instanceof Grass) {
+                        Icon c = new ImageIcon("kaja.jpg");
                         btn.setIcon(c);
                     }
 
-                    if (btn.getText().equals("B")) {
-                        Icon d =new ImageIcon("bokor.jpg");
+                    if (cell instanceof Bush) {
+                        Icon d = new ImageIcon("bokor.jpg");
                         btn.setIcon(d);
                     }
 
                     if (btn.getText().equals(" ")) {
-                        Icon e =new ImageIcon("alap.jpg");
+                        Icon e = new ImageIcon("alap.jpg");
                         btn.setIcon(e);
                     }
                     //if (Cell instanceof Rabbit) {
-                     //   btn.setIcon(new ImageIcon("nyuszi2.jpg"));
+                    //   btn.setIcon(new ImageIcon("nyuszi2.jpg"));
                     //}
                 }
             }
         }
     }
 
+    @Override
+    public void rabbitInfo(Rabbit selectedCell) {
+        //gameInfo.setText(selectedCell.rabbitInfo());
+
+    }
+
+
+    public void eagleAttackAnimation(JPanel root) {
+        eaglePanel = new JLabel();
+        eaglePanel.setBounds(15, 5, 465, 200);
+        eaglePanel.setIcon(new ImageIcon("szny.jpg"));
+        root.add(eaglePanel);
+        eaglePanel.setVisible(true);
+    }
+
+    public void setIcons(JButton btn) {
+        if (btn.getText().equals("Super R.")) {
+            Icon a = new ImageIcon("szny.jpg");
+            btn.setIcon(a);
+        }
+
+        if (btn.getText().equals("Rabbit")) {
+            Icon b = new ImageIcon("nyuszi2.jpg");
+            btn.setIcon(b);
+        }
+
+        if (btn.getText().equals("G")) {
+            Icon c = new ImageIcon("kaja.jpg");
+            btn.setIcon(c);
+        }
+
+        if (btn.getText().equals("B")) {
+            Icon d = new ImageIcon("bokor.jpg");
+            btn.setIcon(d);
+        }
+
+        if (btn.getText().equals(" ")) {
+            Icon e = new ImageIcon("alap.jpg");
+            btn.setIcon(e);
+        }
+    }
+
+    @Override
+    public void showRabbitInfo(Rabbit rabbit) {
+
+        rabbitInfo.removeAll();
+
+        String info = rabbit.toString() + " "  + " :     Energy: " + rabbit.getEnergy() + ",     Age: " + rabbit.getAge();
+
+        rabbitInfo.add(new Label(info));
+
+        rabbitInfo.revalidate();
+    }
+/*
     public void showRabbitsInfo(List<Rabbit> rabbitList, List<SuperRabbit> superRabbitList) {
 
         rabbitInfo.removeAll();
 
         for (int j = 0; j < rabbitList.size(); ++j) {
-            String info = Table.rabbitList.get(j).toString() + " " + (j+1) +" :     Energy: " + Table.rabbitList.get(j).getEnergy() + ",     Age: " + Table.rabbitList.get(j).getAge();
+            String info = Table.rabbitList.get(j).toString() + " " + (j + 1) + " :     Energy: " + Table.rabbitList.get(j).getEnergy() + ",     Age: " + Table.rabbitList.get(j).getAge();
 
-            rabbitInfo.add(new Label (info));
+            rabbitInfo.add(new Label(info));
         }
         for (int j = 0; j < superRabbitList.size(); ++j) {
-            String info = Table.superRabbitList.get(j).toString() + " " + (j+1) +" :  Energy: " + Table.superRabbitList.get(j).getEnergy() + ",     Age: " + Table.superRabbitList.get(j).getAge();
+            String info = Table.superRabbitList.get(j).toString() + " " + (j + 1) + " :  Energy: " + Table.superRabbitList.get(j).getEnergy() + ",     Age: " + Table.superRabbitList.get(j).getAge();
 
-            rabbitInfo.add(new Label (info));
+            rabbitInfo.add(new Label(info));
         }
-    }
+    }*/
 
     @Override
     public void setSelection(Position position, boolean selection) {
@@ -187,32 +247,8 @@ public class Main extends JFrame implements MainContract.View {
         layoutButtons.repaint();
         rabbitInfo.revalidate();
 
-        if (btn.getText().equals("Szuper R.")) {
-            Icon a =new ImageIcon("szny.jpg");
-            btn.setIcon(a);
-        }
-
-        if (btn.getText().equals("Rabbit")) {
-            Icon b =new ImageIcon("nyuszi2.jpg");
-            btn.setIcon(b);
-        }
-
-        if (btn.getText().equals("G")) {
-            Icon c =new ImageIcon("kaja.jpg");
-            btn.setIcon(c);
-        }
-
-        if (btn.getText().equals("B")) {
-            Icon d =new ImageIcon("bokor.jpg");
-            btn.setIcon(d);
-        }
-
-        if (btn.getText().equals(" ")) {
-            Icon e =new ImageIcon("alap.jpg");
-            btn.setIcon(e);
-        }
+        //setIcons(btn);
     }
-
 
 
     @Override
@@ -239,10 +275,25 @@ public class Main extends JFrame implements MainContract.View {
         }
     }
 
+    /*@Override
+    public void showPanel1() {
+        layoutButtons.setVisible(true);
+        layoutButtons2.setVisible(false);
+    }
+
+    @Override
+    public void showPanel2(String attack) {
+        layoutButtons.setVisible(false);
+        layoutButtons2.setVisible(true);
+
+        ((Label) layoutButtons2.getComponent(0)).setText(attack);
+    }*/
+
     @Override
     public void setRabbitInfo(String info) {
         rabbitInfo.setText(info);
     }
+
 
     /*@Override
     public int getYearr() {
