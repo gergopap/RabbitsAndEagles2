@@ -2,17 +2,15 @@ import javax.swing.*;
 
 public class Rabbit extends Cell implements Death {
 
-    private int age;
-    private int energy;
-    public Icon icon;
-    private boolean inBush;
+    protected int age;
+    protected int energy;
+    protected boolean inBush;
 
     Rabbit(int x, int y, int age, int energy) {
         super(x, y);
         this.age = age;
         this.energy = energy;
         this.inBush = false;
-        this.icon = new ImageIcon("nyuszi2.jpg");
     }
 
 

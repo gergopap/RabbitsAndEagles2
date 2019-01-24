@@ -132,9 +132,7 @@ public class Main extends JFrame implements MainContract.View {
                     if (cell instanceof SuperRabbit) {
                         Icon a = new ImageIcon("szny.jpg");
                         btn.setIcon(a);
-                    }
-
-                    if (cell instanceof Rabbit) {
+                    } else if (cell instanceof Rabbit) {
                         Icon b = new ImageIcon("nyuszi2.jpg");
                         btn.setIcon(b);
                     }

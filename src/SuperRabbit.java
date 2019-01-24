@@ -1,12 +1,7 @@
-public class SuperRabbit extends Cell implements Death{
-
-    private int age;
-    private int energy;
+public class SuperRabbit extends Rabbit implements Death{
 
     SuperRabbit(int x, int y, int age, int energy) {
-        super(x, y);
-        this.age = age;
-        this.energy = energy;
+        super(x, y, age, energy);
     }
 
 
@@ -40,9 +35,11 @@ public class SuperRabbit extends Cell implements Death{
         }
     }
 
+
     public int getAge() {
         return age;
     }
+
 
     public void setAge(int age) {
         this.age = age;
