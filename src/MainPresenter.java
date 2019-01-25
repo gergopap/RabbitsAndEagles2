@@ -7,7 +7,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     public MainPresenter(MainContract.View view) {
         this.view = view;
-        table = new Table(1);
+        table = new Table();
 
         view.showTable(table.getTable());
         //view.getYearr(table.getYear());
@@ -111,7 +111,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     public Rabbit death() {
         for (int i = 0; i < Table.rabbitList.size(); i++) {
-            if (Table.rabbitList.get(i).getAge() == 10 || Table.rabbitList.get(i).getEnergy() == 0) {
+            if (Table.rabbitList.get(i).getAge() > 9 || Table.rabbitList.get(i).getEnergy() == 0) {
                 Rabbit rabbit = Table.rabbitList.get(i);
                 Table.rabbitList.remove(rabbit);
                 --i;
@@ -124,7 +124,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     public SuperRabbit deathSr() {
         for (int i = 0; i < Table.superRabbitList.size(); i++) {
-            if (Table.superRabbitList.get(i).getAge() == 10 || Table.superRabbitList.get(i).getEnergy() == 0) {
+            if (Table.superRabbitList.get(i).getAge() > 9 || Table.superRabbitList.get(i).getEnergy() == 0) {
                 SuperRabbit superR = Table.superRabbitList.get(i);
                 Table.superRabbitList.remove(superR);
                 --i;

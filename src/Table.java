@@ -17,8 +17,7 @@ public class Table {
     static List<SuperRabbit> superRabbitList = new ArrayList<>();
 
 
-    public Table(int year) {
-        //this.year = year;
+    public Table() {
         //rabbitListFiller();
         eagleListFiller();
         //superRabbitListFiller();

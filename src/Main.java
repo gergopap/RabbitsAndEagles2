@@ -130,7 +130,7 @@ public class Main extends JFrame implements MainContract.View {
                 if (cell != null) {
                     //btn.setText(cell.toString());
                     if (cell instanceof DeadRabbit) {
-                        Icon f = new ImageIcon("sas.gif");
+                        Icon f = new ImageIcon("death.gif");
                         btn.setIcon(f);
                     } else if (cell instanceof SuperRabbit) {
                         Icon a = new ImageIcon("szny.jpg");
