@@ -26,13 +26,16 @@ public class SuperRabbit extends Rabbit implements Death{
 
 
     @Override
-    public void death() {
+    public Rabbit death() {
         for (int i = 0; i < Table.superRabbitList.size(); ++i) {
             if (Table.superRabbitList.get(i).getAge() == 10 || Table.superRabbitList.get(i).getEnergy() == 0) {
-                Table.superRabbitList.remove(i);
+                Rabbit rabbit = Table.superRabbitList.get(i);
+                Table.superRabbitList.remove(rabbit);
                 --i;
+                return rabbit;
             }
         }
+        return null;
     }
 
 

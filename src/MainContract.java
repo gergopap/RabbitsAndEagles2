@@ -17,10 +17,12 @@ public interface MainContract {
         //void attackAnimation();
         void setRabbitInfo(String info);
         //int getYearr(table.getYear);
-        void eagleAttackAnimation(JPanel root);
+        //void eagleAttackAnimation(JPanel root);
         void rabbitInfo(Rabbit selectedCell);
+        void setAttackIcon(Position position);
 
 
+        void gameOverMessege();
     }
 
     interface Presenter {

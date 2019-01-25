@@ -7,6 +7,7 @@ public class Cell {
         this.y = y;
     }
 
+
     public void setX(int x) {
         this.x = x;
     }
@@ -39,7 +40,7 @@ public class Cell {
         return 0;
     }
 
-    public boolean canMoveOutOfAxis() {
+     public boolean canMoveOutOfAxis() {
         return false;
     }
 

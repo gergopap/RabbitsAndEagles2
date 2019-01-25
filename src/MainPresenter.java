@@ -39,7 +39,9 @@ public class MainPresenter implements MainContract.Presenter {
                 if (selectedItem.isMovable() && !(selectedItem2 instanceof Rabbit || selectedItem2 instanceof SuperRabbit) &&
                         table.isValidStep(selectedPosition, position)) {
                     if (selectedItem instanceof Rabbit) {
+                        int energy = ((Rabbit) selectedItem).getEnergy();
                         ((Rabbit) selectedItem).setInBush(selectedItem2 instanceof Bush);
+                        ((Rabbit) selectedItem).setEnergy(energy -1);
                         ((Rabbit) selectedItem).setX(selectedItem2.x);
                         ((Rabbit) selectedItem).setY(selectedItem2.y);
                     }
@@ -66,14 +68,25 @@ public class MainPresenter implements MainContract.Presenter {
         attackingEagle.setEnergy(energy - 1);
 
         Rabbit rabbit = attackingEagle.attack();
+        int posX = rabbit.x;
+        int posY = rabbit.y;
+        Position position = new Position(posX,posY);
         if (rabbit != null) {
+
+            view.setAttackIcon(position);
             table.removeRabbit(rabbit);
         }
 
+        int k = (int) (Math.random() * Table.eagleList.size() - 1);
 
+        /*Table.rabbitList.get(k).death();
+        Rabbit rabbit2 = Table.rabbitList.get(k).death();
+        if (rabbit2 != null) {
+            table.removeRabbit(rabbit2);
+        }*/
         //view.eagleAttackAnimation(root);
 
-        System.out.println(attackingEagle); //Eagle.attack()
+        System.out.println(attackingEagle);
 
         for (int j = 0; j < Table.eagleList.size(); j++) {
             int age = Table.eagleList.get(j).getAge();
@@ -83,6 +96,7 @@ public class MainPresenter implements MainContract.Presenter {
         for (int j = 0; j < Table.rabbitList.size(); j++) {
             int age = Table.rabbitList.get(j).getAge();
             Table.rabbitList.get(j).setAge(age + 1);
+
         }
 
         for (int j = 0; j < Table.superRabbitList.size(); j++) {
@@ -90,14 +104,17 @@ public class MainPresenter implements MainContract.Presenter {
             Table.superRabbitList.get(j).setAge(age + 1);
         }
 
+
         view.showTable(table.getTable());
 
-        //int year = table.getYear();
-        //table.setYear(year + 1);
-        //rabbitsturn()
-        //showAttackingEagle();
+        gameOver();
 
+    }
 
+    private void gameOver () {
+        if (Table.rabbitList.size() == 0 && Table.superRabbitList.size() == 0) {
+            view.gameOverMessege();
+        }
     }
 
 
@@ -145,19 +162,6 @@ public class MainPresenter implements MainContract.Presenter {
         Range range = new Range(p1, p2);
         view.highlightRange(range, item.canMoveOutOfAxis() ? null : itemPosition);
     }
-
-
-    private int ui = 0;
-
-    /*public void showAttackingEagle() {
-        if (ui == 0) {
-            view.showPanel2(UUID.randomUUID().toString());
-        } else {
-            view.showPanel1();
-        }
-
-        ui = (ui + 1) % 2;
-    }*/
 
 
 }

@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.util.List;
 import java.util.Random;
 
-public class Eagle implements Death, Attack {
+public class Eagle implements Attack {
 
     private int age;
     private int energy;
@@ -12,16 +12,6 @@ public class Eagle implements Death, Attack {
         this.energy = energy;
     }
 
-
-    @Override
-    public void death() {
-        for (int i = 0; i < Table.eagleList.size(); ++i) {
-            if (Table.eagleList.get(i).getAge() == 10 || Table.eagleList.get(i).getEnergy() == 0) {
-                Table.eagleList.remove(i);
-                --i;
-            }
-        }
-    }
 
     @Override
     public Rabbit attack() {

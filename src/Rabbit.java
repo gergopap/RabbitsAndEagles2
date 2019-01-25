@@ -14,8 +14,6 @@ public class Rabbit extends Cell implements Death {
     }
 
 
-
-
     public boolean isItRabbit() {
         return true;
     }
@@ -43,13 +41,17 @@ public class Rabbit extends Cell implements Death {
 
 
     @Override
-    public void death() {
+    public Rabbit death() {
         for (int i = 0; i < Table.rabbitList.size(); i++) {
             if (Table.rabbitList.get(i).getAge() == 10 || Table.rabbitList.get(i).getEnergy() == 0) {
-                Table.rabbitList.remove(i);
+                Rabbit rabbit = Table.rabbitList.get(i);
+                Table.rabbitList.remove(rabbit);
                 --i;
+                System.out.println(Table.rabbitList);
+                return rabbit;
             }
         }
+        return null;
     }
 
     public int getAge() {

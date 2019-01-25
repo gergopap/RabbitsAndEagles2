@@ -47,18 +47,18 @@ public class Main extends JFrame implements MainContract.View {
         layoutButtons.setLayout(null);
         root.add(layoutButtons);
 
-        layoutButtons2 = new JPanel();
+        /*layoutButtons2 = new JPanel();
         layoutButtons2.setBounds(0, 0, 410, 410);
         layoutButtons2.setBackground(Color.RED);
-        layoutButtons2.setLayout(null);
+        layoutButtons2.setLayout(null);*/
 
-        root.add(layoutButtons2);
+        //root.add(layoutButtons2);
 
         rabbitInfo = new JTextArea();
-        rabbitInfo.setBounds(495, 225, 300, 465);
+        rabbitInfo.setBounds(495, 400, 300, 100);
         rabbitInfo.setBackground(Color.gray);
-        rabbitInfo.setFont(new Font("Arial", Font.BOLD, 15));
-        rabbitInfo.setLayout(new GridLayout(10, 3));
+        rabbitInfo.setFont(new Font("Arial", Font.BOLD, 17));
+        rabbitInfo.setLayout(new GridLayout(2, 3));
         root.add(rabbitInfo);
         rabbitInfo.setVisible(true);
         //rabbitInfo.setText();
@@ -77,7 +77,7 @@ public class Main extends JFrame implements MainContract.View {
         root.add(eaglePanel);
         eaglePanel.setVisible(true);
 
-        eagleAttackAnimation(root);
+        //eagleAttackAnimation(root);
 
 
         actionListener = e -> {
@@ -106,7 +106,7 @@ public class Main extends JFrame implements MainContract.View {
                 btn.setActionCommand(i + " " + j);
                 btn.addActionListener(actionListener);
                 btn.setBackground(null);
-                btn.setBorderPainted(true);
+                btn.setBorder(BorderFactory.createEmptyBorder());
                 btn.setBorder(BorderFactory.createLineBorder(Color.white));
                 btn.setBounds(15 + j * 55,
                         15 + i * 55,
@@ -128,7 +128,7 @@ public class Main extends JFrame implements MainContract.View {
 
                 Cell cell = matrix[i][j];
                 if (cell != null) {
-                    btn.setText(cell.toString());
+                    //btn.setText(cell.toString());
                     if (cell instanceof SuperRabbit) {
                         Icon a = new ImageIcon("szny.jpg");
                         btn.setIcon(a);
@@ -151,9 +151,6 @@ public class Main extends JFrame implements MainContract.View {
                         Icon e = new ImageIcon("alap.jpg");
                         btn.setIcon(e);
                     }
-                    //if (Cell instanceof Rabbit) {
-                    //   btn.setIcon(new ImageIcon("nyuszi2.jpg"));
-                    //}
                 }
             }
         }
@@ -165,50 +162,44 @@ public class Main extends JFrame implements MainContract.View {
 
     }
 
+    @Override
+    public void setAttackIcon(Position position) {
+        JButton btn = (JButton) layoutButtons.getComponent(position.x * 8 + position.y);
+        Icon i = new ImageIcon("sas.gif");
+        btn.setIcon(i);
+        repaint();
+    }
 
-    public void eagleAttackAnimation(JPanel root) {
+    public static void gameOverBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "" + titleBar, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void gameOverMessege() {
+        gameOverBox("You LOSE!!!", "Game Over");
+    }
+
+
+    /*public void eagleAttackAnimation(JPanel root) {
         eaglePanel = new JLabel();
         eaglePanel.setBounds(15, 5, 465, 200);
         eaglePanel.setIcon(new ImageIcon("szny.jpg"));
         root.add(eaglePanel);
         eaglePanel.setVisible(true);
-    }
-
-    public void setIcons(JButton btn) {
-        if (btn.getText().equals("Super R.")) {
-            Icon a = new ImageIcon("szny.jpg");
-            btn.setIcon(a);
-        }
-
-        if (btn.getText().equals("Rabbit")) {
-            Icon b = new ImageIcon("nyuszi2.jpg");
-            btn.setIcon(b);
-        }
-
-        if (btn.getText().equals("G")) {
-            Icon c = new ImageIcon("kaja.jpg");
-            btn.setIcon(c);
-        }
-
-        if (btn.getText().equals("B")) {
-            Icon d = new ImageIcon("bokor.jpg");
-            btn.setIcon(d);
-        }
-
-        if (btn.getText().equals(" ")) {
-            Icon e = new ImageIcon("alap.jpg");
-            btn.setIcon(e);
-        }
-    }
+    }*/
 
     @Override
     public void showRabbitInfo(Rabbit rabbit) {
 
         rabbitInfo.removeAll();
 
-        String info = rabbit.toString() + " "  + " :     Energy: " + rabbit.getEnergy() + ",     Age: " + rabbit.getAge();
 
+
+        String info = rabbit.toString() + " "  + ":   Energy: "+ rabbit.getEnergy() + ",   Age: " + rabbit.getAge();
+        String info2 = "Hiding :    " + rabbit.isInBush();
         rabbitInfo.add(new Label(info));
+        rabbitInfo.add(new Label (info2));
 
         rabbitInfo.revalidate();
     }
@@ -272,20 +263,6 @@ public class Main extends JFrame implements MainContract.View {
 
         }
     }
-
-    /*@Override
-    public void showPanel1() {
-        layoutButtons.setVisible(true);
-        layoutButtons2.setVisible(false);
-    }
-
-    @Override
-    public void showPanel2(String attack) {
-        layoutButtons.setVisible(false);
-        layoutButtons2.setVisible(true);
-
-        ((Label) layoutButtons2.getComponent(0)).setText(attack);
-    }*/
 
     @Override
     public void setRabbitInfo(String info) {

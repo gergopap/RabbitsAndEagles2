@@ -1,4 +1,4 @@
 public interface Death {
-    void death();
+    Rabbit death();
 }
 
