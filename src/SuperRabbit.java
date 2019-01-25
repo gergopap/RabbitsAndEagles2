@@ -1,4 +1,4 @@
-public class SuperRabbit extends Rabbit implements Death{
+public class SuperRabbit extends Rabbit {
 
     SuperRabbit(int x, int y, int age, int energy) {
         super(x, y, age, energy);
@@ -25,20 +25,6 @@ public class SuperRabbit extends Rabbit implements Death{
 
 
 
-    @Override
-    public Rabbit death() {
-        for (int i = 0; i < Table.superRabbitList.size(); ++i) {
-            if (Table.superRabbitList.get(i).getAge() == 10 || Table.superRabbitList.get(i).getEnergy() == 0) {
-                Rabbit rabbit = Table.superRabbitList.get(i);
-                Table.superRabbitList.remove(rabbit);
-                --i;
-                return rabbit;
-            }
-        }
-        return null;
-    }
-
-
     public int getAge() {
         return age;
     }
@@ -56,7 +42,7 @@ public class SuperRabbit extends Rabbit implements Death{
         this.energy = energy;
     }
 
-    public String superRabbitInfo() { return "Rabbit:" + " "
+    public String superRabbitInfo() { return "Super Rabbit:" + " "
             + "Age:" + " " + getAge() + "\n\r"
             + "Energy:" + " " + getEnergy() + "\n\r";
     }

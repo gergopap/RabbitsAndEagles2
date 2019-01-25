@@ -212,12 +212,9 @@ public class Table {
     }
 
     public void removeRabbit(Rabbit rabbit) {
-        matrix[rabbit.x][rabbit.y] = new Cell(rabbit.x, rabbit.y);
-    }
-
-    public String rabbitStepToBush() {
-        String rb = "R/B";
-        return rb;
+        if(rabbit != null) {
+            matrix[rabbit.x][rabbit.y] = new DeadRabbit(rabbit.x, rabbit.y,0,0);
+        }
     }
 
     @Override

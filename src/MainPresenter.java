@@ -41,7 +41,7 @@ public class MainPresenter implements MainContract.Presenter {
                     if (selectedItem instanceof Rabbit) {
                         int energy = ((Rabbit) selectedItem).getEnergy();
                         ((Rabbit) selectedItem).setInBush(selectedItem2 instanceof Bush);
-                        ((Rabbit) selectedItem).setEnergy(energy -1);
+                        ((Rabbit) selectedItem).setEnergy(energy - 1);
                         ((Rabbit) selectedItem).setX(selectedItem2.x);
                         ((Rabbit) selectedItem).setY(selectedItem2.y);
                     }
@@ -68,22 +68,20 @@ public class MainPresenter implements MainContract.Presenter {
         attackingEagle.setEnergy(energy - 1);
 
         Rabbit rabbit = attackingEagle.attack();
-        int posX = rabbit.x;
-        int posY = rabbit.y;
-        Position position = new Position(posX,posY);
+        //int posX = rabbit.x;
+        //int posY = rabbit.y;
+        //Position position = new Position(posX, posY);
         if (rabbit != null) {
 
-            view.setAttackIcon(position);
+            //view.setAttackIcon(position);
             table.removeRabbit(rabbit);
         }
 
-        int k = (int) (Math.random() * Table.eagleList.size() - 1);
+        Rabbit rabbit2 = death();
+        table.removeRabbit(rabbit2);
+        SuperRabbit superRabbit = deathSr();
+        table.removeRabbit(superRabbit);
 
-        /*Table.rabbitList.get(k).death();
-        Rabbit rabbit2 = Table.rabbitList.get(k).death();
-        if (rabbit2 != null) {
-            table.removeRabbit(rabbit2);
-        }*/
         //view.eagleAttackAnimation(root);
 
         System.out.println(attackingEagle);
@@ -111,7 +109,33 @@ public class MainPresenter implements MainContract.Presenter {
 
     }
 
-    private void gameOver () {
+    public Rabbit death() {
+        for (int i = 0; i < Table.rabbitList.size(); i++) {
+            if (Table.rabbitList.get(i).getAge() == 10 || Table.rabbitList.get(i).getEnergy() == 0) {
+                Rabbit rabbit = Table.rabbitList.get(i);
+                Table.rabbitList.remove(rabbit);
+                --i;
+                System.out.println(Table.rabbitList);
+                return rabbit;
+            }
+        }
+        return null;
+    }
+
+    public SuperRabbit deathSr() {
+        for (int i = 0; i < Table.superRabbitList.size(); i++) {
+            if (Table.superRabbitList.get(i).getAge() == 10 || Table.superRabbitList.get(i).getEnergy() == 0) {
+                SuperRabbit superR = Table.superRabbitList.get(i);
+                Table.superRabbitList.remove(superR);
+                --i;
+                System.out.println(Table.superRabbitList);
+                return superR;
+            }
+        }
+        return null;
+    }
+
+    private void gameOver() {
         if (Table.rabbitList.size() == 0 && Table.superRabbitList.size() == 0) {
             view.gameOverMessege();
         }

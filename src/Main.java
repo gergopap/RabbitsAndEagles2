@@ -129,25 +129,22 @@ public class Main extends JFrame implements MainContract.View {
                 Cell cell = matrix[i][j];
                 if (cell != null) {
                     //btn.setText(cell.toString());
-                    if (cell instanceof SuperRabbit) {
+                    if (cell instanceof DeadRabbit) {
+                        Icon f = new ImageIcon("sas.gif");
+                        btn.setIcon(f);
+                    } else if (cell instanceof SuperRabbit) {
                         Icon a = new ImageIcon("szny.jpg");
                         btn.setIcon(a);
                     } else if (cell instanceof Rabbit) {
                         Icon b = new ImageIcon("nyuszi2.jpg");
                         btn.setIcon(b);
-                    }
-
-                    if (cell instanceof Grass) {
+                    } else if (cell instanceof Grass) {
                         Icon c = new ImageIcon("kaja.jpg");
                         btn.setIcon(c);
-                    }
-
-                    if (cell instanceof Bush) {
+                    } else if (cell instanceof Bush) {
                         Icon d = new ImageIcon("bokor.jpg");
                         btn.setIcon(d);
-                    }
-
-                    if (btn.getText().equals(" ")) {
+                    } else {
                         Icon e = new ImageIcon("alap.jpg");
                         btn.setIcon(e);
                     }
@@ -170,8 +167,7 @@ public class Main extends JFrame implements MainContract.View {
         repaint();
     }
 
-    public static void gameOverBox(String infoMessage, String titleBar)
-    {
+    public static void gameOverBox(String infoMessage, String titleBar) {
         JOptionPane.showMessageDialog(null, infoMessage, "" + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -195,11 +191,10 @@ public class Main extends JFrame implements MainContract.View {
         rabbitInfo.removeAll();
 
 
-
-        String info = rabbit.toString() + " "  + ":   Energy: "+ rabbit.getEnergy() + ",   Age: " + rabbit.getAge();
+        String info = rabbit.toString() + " " + ":   Energy: " + rabbit.getEnergy() + ",   Age: " + rabbit.getAge();
         String info2 = "Hiding :    " + rabbit.isInBush();
         rabbitInfo.add(new Label(info));
-        rabbitInfo.add(new Label (info2));
+        rabbitInfo.add(new Label(info2));
 
         rabbitInfo.revalidate();
     }
@@ -231,12 +226,8 @@ public class Main extends JFrame implements MainContract.View {
     public void updateCellItem(Position position, Cell CellItem) {
         JButton btn = (JButton) layoutButtons.getComponent(position.x * 8 + position.y);
 
-        btn.setText(CellItem != null ? CellItem.toString() : null);
-
         layoutButtons.repaint();
         rabbitInfo.revalidate();
-
-        //setIcons(btn);
     }
 
 

@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class Rabbit extends Cell implements Death {
+public class Rabbit extends Cell {
 
     protected int age;
     protected int energy;
@@ -39,20 +39,6 @@ public class Rabbit extends Cell implements Death {
         return false;
     }
 
-
-    @Override
-    public Rabbit death() {
-        for (int i = 0; i < Table.rabbitList.size(); i++) {
-            if (Table.rabbitList.get(i).getAge() == 10 || Table.rabbitList.get(i).getEnergy() == 0) {
-                Rabbit rabbit = Table.rabbitList.get(i);
-                Table.rabbitList.remove(rabbit);
-                --i;
-                System.out.println(Table.rabbitList);
-                return rabbit;
-            }
-        }
-        return null;
-    }
 
     public int getAge() {
         return age;
